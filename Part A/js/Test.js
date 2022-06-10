@@ -1,5 +1,5 @@
 import OpenAddressHashTable from "./OpenAddressHashTable.js";
-import { Person, Employee, Student } from "./People.js";
+import { Person, Employee, Student, Undergraduate } from "./People.js";
 
 const NUM_BINS = 5;
 const KEY_LENGTH = 8;
@@ -39,7 +39,7 @@ let dgKey = hashTable.generateKey();
 hashTable.putValue(dgKey, new Employee(dgKey, "David", "Gilmour", 120000));
 printHashTable("\nAfter Changing 3 Items", hashTable);
 
-// DEMONSTRATE GETTING VALUES FROM THE HASH TABLE
+// // DEMONSTRATE GETTING VALUES FROM THE HASH TABLE
 let p = hashTable.getValue(jlKey);
 console.log("\nget " + jlKey + ": " + p.toString() + "\n");
 p = hashTable.getValue(cwKey);
@@ -53,7 +53,7 @@ hashTable.putValue(cwKey, new Student(cwKey, "Keith", "Richards", 3.1));
 hashTable.putValue(dgKey, new Student(dgKey, "Bill", "Withers", 3.4));
 printHashTable("\nAfter Changing 3 Items", hashTable);
 
-// AND DEMONSTRATE REMOVING ITEMS FROM THE BST
+// // AND DEMONSTRATE REMOVING ITEMS FROM THE BST
 hashTable.removeValue(jlKey);
 printHashTable("\nAfter Removing Otis Redding", hashTable);
 
@@ -62,3 +62,31 @@ printHashTable("\nAfter Removing Keith Richards", hashTable);
 
 hashTable.removeValue(dgKey);
 printHashTable("\nAfter Removing Bill Withers", hashTable);
+
+//UNDERGRADUATE TEST  
+let uKey1 = hashTable.generateKey();
+hashTable.putValue(uKey1, new Undergraduate(uKey1, "Maria", "Leonard", 2.2, "U1"));
+let uKey2 = hashTable.generateKey();
+hashTable.putValue(uKey2, new Undergraduate(uKey2, "Kent", "Williams", 4.0, "U3"));
+let uKey3 = hashTable.generateKey();
+hashTable.putValue(uKey3, new Undergraduate(uKey3, "Daniella", "Jones", 3.6, "U2"));
+printHashTable("\nAfter adding 3 Undergraduates", hashTable);
+
+// DEMONSTRATE GETTING VALUES FROM THE HASH TABLE
+let ug = hashTable.getValue(uKey1);
+console.log("\nget " + uKey1 + ": " + ug.toString() + "\n");
+ug = hashTable.getValue(uKey2);
+console.log("\nget " + uKey2 + ": " + ug.toString() + "\n");
+ug = hashTable.getValue(uKey3);
+console.log("\nget " + uKey3 + ": " + ug.toString() + "\n");
+printHashTable("\nAfter getting 3 Undergraduates", hashTable);
+
+//AND DEMONSTRATE REMOVING ITEMS FROM THE BST
+hashTable.removeValue(uKey1);
+printHashTable("\nAfter Removing Maria Leo", hashTable);
+
+hashTable.removeValue(uKey2);
+printHashTable("\nAfter Removing Kent Will", hashTable);
+
+hashTable.removeValue(uKey3);
+printHashTable("\nAfter Removing Daniella Jones", hashTable);
