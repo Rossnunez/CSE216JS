@@ -64,6 +64,54 @@ export default class OpenAddressHashTable {
 
     // @todo - YOU MUST DEFINE THIS METHOD
     removeValue(key) {
+        let index = this.hashCode(key);
+        let found = 0;
+        for (let i = 0; i < this.hashTable.length; i++) {
+            if (index == this.hashTable.length) {
+                index = 0;
+            }
+            if (this.hashTable[index] != null) {
+                if (this.hashTable[index].key == key) { //keypair found, delete pair then rehash
+                    this.hashTable[index] = null;
+                    this.size--;
+                    for (let j = 0; j < this.hashTable.length; j++) { //rehash table after we delete the pair
+                        if (this.hashTable[j] != null) {
+                            let pair = this.hashTable[j];
+                            this.putValue(pair.key, pair.value);
+                        }
+                    }
+
+                    //after table is rehashed we need to search for duplicates
+                    for (let z = 0; z < this.hashTable.length; z++) {
+                        let givenPair = (this.hashTable[z]);
+                        if (givenPair != null) {
+                            for (let j = 0; j < this.hashTable.length; j++) {
+                                let otherPair = (this.hashTable[j]);
+                                if (otherPair != null) {
+                                    if ((z != j) && (givenPair.key == otherPair.key)) {
+                                        let oIndex = this.hashCode(givenPair.key);
+
+                                        if (oIndex != z) {
+                                            givenPair = null;
+                                            this.hashTable[z] = givenPair;
+                                            this.size--;
+                                        }
+                                        else if (oIndex != j) {
+                                            otherPair = null;
+                                            this.hashTable[j] = otherPair;
+                                            this.size--;
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            index++;
+        }
     }
 
     // @todo - YOU MUST DEFINE THIS METHOD
