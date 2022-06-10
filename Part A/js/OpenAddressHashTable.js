@@ -49,11 +49,15 @@ export default class OpenAddressHashTable {
     getValue(key) {
         let index = this.hashCode(key);
         for (let i = 0; i < this.hashTable.length; i++) {
+            if (index == this.hashTable.length) {
+                index = 0;
+            }
             if (this.hashTable[index] != null) {
                 if (this.hashTable[index].key == key) {
                     return this.hashTable[index].value;
                 }
             }
+            index++;
         }
         return null;
     }
