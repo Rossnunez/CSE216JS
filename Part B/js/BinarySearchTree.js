@@ -34,12 +34,12 @@ export default class BinarySearchTree {
         return key;
     }
 
-    // @todo - YOU MUST DEFINE THIS METHOD
+    // @completed
     putValue(key, value) {
         let dupKey = 0;
         if (this.root == null) // if the tree is empty, just insert node into root
         {
-            let newNode = new Node(key, value, newNode, null, null);
+            let newNode = new Node(key, value, this.root, null, null);
             this.root = newNode;
             this.size++;
         } else {
@@ -107,7 +107,7 @@ export default class BinarySearchTree {
                         if (node != null) compare = key.localeCompare(node.key);
                     }
                     else if (compare == 0) {
-                        node.data = data;
+                        node.data = value;
                         dupKey = 1;
                         break;
                     }
@@ -129,6 +129,25 @@ export default class BinarySearchTree {
 
     // @todo - YOU MUST DEFINE THIS METHOD
     getValue(key) {
+        if (this.root != null) {
+            let node = this.root;
+            let compare = key.localeCompare(node.key);
+            while (node != null) {
+                if (compare == 0) // key found
+                {
+                    return node.data;
+                }
+                else if (compare < 0) // key is bigger than node(MOVE RIGHT)
+                {
+                    node = node.right;
+                }
+                else if (compare > 0) // key is smaller than node(MOVE LEFT
+                {
+                    node = node.left;
+                }
+                if (node != null) compare = key.localeCompare(node.key);
+            }
+        }
         return null;
     }
 
